@@ -27,7 +27,7 @@
     <ClCompile Include="asteroid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="blasteroids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

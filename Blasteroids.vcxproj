@@ -73,7 +73,7 @@
     <ClCompile Include="asteroid.cpp" />
     <ClCompile Include="blast.cpp" />
     <ClCompile Include="flying.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="blasteroids.cpp" />
     <ClCompile Include="spaceship.cpp" />
   </ItemGroup>
   <ItemGroup>
