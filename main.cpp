@@ -2,6 +2,12 @@
 #include <allegro5\allegro.h>
 
 const float FPS = 60;
+const int SCREEN_W = 640;
+const int SCREEN_H = 480;
+const int BOUNCER_SIZE = 32;
+enum MKEYS {
+	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+};
 
 int main() {
 	ALLEGRO_DISPLAY *display = NULL;
@@ -35,27 +41,37 @@ int main() {
    }
  
    al_register_event_source(event_queue, al_get_display_event_source(display));
+   al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
    al_clear_to_color(al_map_rgb(255,0,0));
  
    al_flip_display();
+
+   al_start_timer(timer);
  
    while(1) {
 		ALLEGRO_EVENT ev;
-		ALLEGRO_TIMEOUT timeout;
-		al_init_timeout(&timeout, 0.06);
 
-		bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+		al_wait_for_event(event_queue, &ev);
 
-		if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		if(ev.type == ALLEGRO_EVENT_TIMER) {
+			redraw = true;
+		}
+		else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			break;
 		}
-   
-		al_clear_to_color(al_map_rgb(255,0,0));
-		al_flip_display();
+		
+		if(redraw && al_is_event_queue_empty(event_queue)) {
+			redraw = false;
+			al_clear_to_color(al_map_rgb(255,0,0));
+			al_flip_display();
+		}
+		
    
    }
+   al_destroy_timer(timer);
    al_destroy_display(display);
+   al_destroy_event_queue(event_queue);
    return 0;
 
 }
