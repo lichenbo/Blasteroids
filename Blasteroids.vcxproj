@@ -75,7 +75,6 @@
     <ClCompile Include="flying.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="spaceship.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asteroid.h" />
