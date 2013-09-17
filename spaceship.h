@@ -7,5 +7,6 @@ public:
 	Spaceship(void);
 	~Spaceship(void);
 	void draw(void);
+	void adjust(void);
 };
 
