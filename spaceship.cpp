@@ -1,8 +1,11 @@
 #include "spaceship.h"
-
+#include "blasteroids.h"
 
 Spaceship::Spaceship(void)
 {
+	sx = SCREEN_W / 2;
+	sy = SCREEN_H / 2;
+
 }
 
 
@@ -13,7 +16,7 @@ Spaceship::~Spaceship(void)
 void Spaceship::draw(void) {
 	ALLEGRO_TRANSFORM transform;
 	al_identity_transform(&transform);
-	al_rotate_transform(&transform, this->heading);
+	al_rotate_transform(&transform, this->heading * 3.14159 / 180);		// Convert degree to radius.
 	al_translate_transform(&transform,  this->sx, this->sy);
 	al_use_transform(&transform);
 
