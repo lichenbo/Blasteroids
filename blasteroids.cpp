@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <allegro5\allegro.h>
+#include "blasteroids.h"
 
-const float FPS = 60;
-const int SCREEN_W = 640;
-const int SCREEN_H = 480;
 const int BOUNCER_SIZE = 32;
 enum MKEYS {
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
