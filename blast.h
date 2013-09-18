@@ -7,5 +7,6 @@ public:
 	Blast(void);
 	~Blast(void);
 	void draw(void);
+	void adjust(void);
 };
 
