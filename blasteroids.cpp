@@ -1,6 +1,9 @@
 #include "blasteroids.h"
+#include "asteroid.h"
+#include "blast.h"
+#include "spaceship.h"
 
-const int BOUNCER_SIZE = 32;
+const int BOUNCER_SIZE = 200;
 enum MKEYS {
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
@@ -48,7 +51,10 @@ int main() {
 
 	al_set_target_bitmap(bouncer);
 	al_clear_to_color(al_map_rgb(255,0,255));
+	
 	al_set_target_bitmap(al_get_backbuffer(display));
+
+	
 
 
    event_queue = al_create_event_queue();
@@ -66,6 +72,9 @@ int main() {
 
    al_clear_to_color(al_map_rgb(255,0,0));
  
+   Asteroid as;
+   as.draw();
+
    al_flip_display();
 
    al_start_timer(timer);
