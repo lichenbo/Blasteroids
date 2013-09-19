@@ -26,3 +26,7 @@ void Spaceship::draw(void) {
 	al_draw_line(6, 4, 1, 4, this->color, 3.0f);
 
 }
+
+void Spaceship::adjust(void) {
+
+}

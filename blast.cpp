@@ -14,3 +14,8 @@ void Blast::draw(void) {
 
 
 }
+
+void Blast::adjust(void) {
+
+
+}

@@ -24,3 +24,7 @@ void Asteroid::draw(void) {
 	al_draw_line(10, 20, 0, 15, this->color, 2.0f);
 	al_draw_line(0, 15, -20, 20, this->color, 2.0f);
 }
+
+void Asteroid::adjust(void) {
+
+}
