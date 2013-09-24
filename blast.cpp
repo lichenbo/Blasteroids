@@ -15,7 +15,7 @@ void Blast::draw(void) {
 
 }
 
-void Blast::adjust(void) {
+void Blast::update(void) {
 
 
 }

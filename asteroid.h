@@ -11,6 +11,6 @@ public:
 	Asteroid(void);
 	~Asteroid(void);
 	void draw(void);
-	void adjust(void);
+	void update(void);
 };
 

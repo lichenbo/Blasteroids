@@ -27,6 +27,6 @@ void Spaceship::draw(void) {
 
 }
 
-void Spaceship::adjust(void) {
+void Spaceship::update(void) {
 
 }

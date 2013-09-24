@@ -12,6 +12,6 @@ protected:
 	ALLEGRO_COLOR color;
 public:
 	virtual void draw(void) = 0;
-	virtual void adjust(void) = 0;
+	virtual void update(void) = 0;
 };
 

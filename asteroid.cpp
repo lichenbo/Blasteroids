@@ -34,6 +34,6 @@ void Asteroid::draw(void) {
 	al_draw_line(0, 15, -20, 20, color, 2.0f);
 }
 
-void Asteroid::adjust(void) {
+void Asteroid::update(void) {
 
 }
