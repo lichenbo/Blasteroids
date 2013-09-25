@@ -1,11 +1,31 @@
 #include "asteroid.h"
+#include "blasteroids.h"
+#include <cstdlib>
+#include <iostream>
+#include <time.h>
 
+using namespace std;
 
 Asteroid::Asteroid(void)
 {
 	color = al_map_rgb(255,255,255);
-	heading = 0;
-	sx = sy = 100;
+	srand((unsigned int)time(NULL));
+	heading = rand() % 360 * 3.14159 / 180;
+	speed = rand() % 50 + 50;
+	rot_velocity = rand() % 10 * 3.14159 / 180;
+	sx = rand() % SCREEN_W;
+	sy = rand() % SCREEN_H;
+	gone = false;
+	if (SCREEN_H*sx > SCREEN_W*sy && sx*sy*4 < SCREEN_H*SCREEN_W) {
+		sy = 0;
+	} else if (SCREEN_H*sx > SCREEN_W*sy) {
+		sx = SCREEN_W;
+	} else if (sx*sy*4 < SCREEN_H*SCREEN_W) {
+		sx = 0;
+	} else {
+		sy = SCREEN_H;
+	}
+	cout << "Asteroid created at " << sx << "," << sy << "; Heading: " << heading << ";" << endl;
 }
 
 
@@ -20,6 +40,7 @@ void Asteroid::draw(void) {
 	al_translate_transform(&transform, sx, sy);
 	al_use_transform(&transform);
 
+	al_init_primitives_addon();
 	al_draw_line(-20, 20, -25, 5, color, 2.0f);
 	al_draw_line(-25, 5, -25, -10, color, 2.0f);
 	al_draw_line(-25, -10, -5, -10, color, 2.0f);
@@ -35,5 +56,7 @@ void Asteroid::draw(void) {
 }
 
 void Asteroid::update(void) {
-
+	heading = heading + rot_velocity;
+	sx += (SCREEN_W/2 - sx)/speed;
+	sy += (SCREEN_H/2 - sy)/speed;
 }
