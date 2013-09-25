@@ -10,11 +10,13 @@ Asteroid::Asteroid(void)
 {
 	color = al_map_rgb(255,255,255);
 	srand((unsigned int)time(NULL));
-	heading = rand() % 360 * 3.14159 / 180;
-	speed = rand() % 50 + 50;
+	twist = rand() % 360 * 3.14159 / 180;
+	speed = rand() % 5 + 3;
 	rot_velocity = rand() % 10 * 3.14159 / 180;
 	sx = rand() % SCREEN_W;
 	sy = rand() % SCREEN_H;
+	scale = 1;
+	heading = rand() % 360 * 3.14159 / 180;
 	gone = false;
 	if (SCREEN_H*sx > SCREEN_W*sy && sx*sy*4 < SCREEN_H*SCREEN_W) {
 		sy = 0;
@@ -36,8 +38,9 @@ Asteroid::~Asteroid(void)
 void Asteroid::draw(void) {
 	ALLEGRO_TRANSFORM transform;
 	al_identity_transform(&transform);
-	al_rotate_transform(&transform, heading);
+	al_rotate_transform(&transform, twist);
 	al_translate_transform(&transform, sx, sy);
+	al_scale_transform(&transform,scale,scale);
 	al_use_transform(&transform);
 
 	al_init_primitives_addon();
@@ -56,7 +59,17 @@ void Asteroid::draw(void) {
 }
 
 void Asteroid::update(void) {
-	heading = heading + rot_velocity;
-	sx += (SCREEN_W/2 - sx)/speed;
-	sy += (SCREEN_H/2 - sy)/speed;
+	twist += rot_velocity;
+	sx += cos(heading) * speed;
+	sy += sin(heading) * speed;
+	if (sx > SCREEN_W/scale) {
+	   sx = 0;
+	} else if (sx < 0) {
+	   sx = SCREEN_W/scale;
+	}
+	if (sy > SCREEN_H/scale) {
+	   sy = 0;
+	} else if (sy < 0) {
+	   sy = SCREEN_H/scale;
+	}
 }
