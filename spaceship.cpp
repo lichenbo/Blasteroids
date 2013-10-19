@@ -52,12 +52,12 @@ void Spaceship::update(bool key[]) {
 	
 	// update with key stroke
 	if (key[KEY_UP]) {
-		sx = sx + cos(heading);
-		sy = sy - sin(heading);
+		sx = sx + cos(heading)*speed;
+		sy = sy - sin(heading)*speed;
 	}
 	if (key[KEY_DOWN]) {
-		sx = sx - cos(heading);
-		sy = sy + sin(heading);
+		sx = sx - cos(heading)*speed;
+		sy = sy + sin(heading)*speed;
 	}
 	if (key[KEY_LEFT]) {
 		heading += DEGTORAD(5);
@@ -96,7 +96,10 @@ void Spaceship::update(bool key[]) {
 		(*itBlast)->update();
 
 		if ((*itBlast)->isGone()) {
+			Blast* delBlast = *itBlast;
 			blasts_list.erase(itBlast++);
+			delete delBlast;
+			delBlast = NULL;
 		} else {
 			itBlast++;
 		}
