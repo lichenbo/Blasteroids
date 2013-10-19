@@ -11,6 +11,8 @@ Spaceship::Spaceship(void)
 	heading = DEGTORAD(90);
 	speed = 10;
 	gone = false;
+	width = 8;
+	height = 20;
 
 }
 
@@ -40,6 +42,7 @@ void Spaceship::update(void) {
 }
 
 void Spaceship::update(bool key[]) {
+	
 
 	// update with key stroke
 	if (key[KEY_UP]) {
@@ -73,8 +76,8 @@ void Spaceship::update(bool key[]) {
 	}
 	assert(sx >= 0 && sx <= SCREEN_W);
 	assert(sy >= 0 && sy <= SCREEN_H);
+}
 
-	// collision detection
-
-
+bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
+	return (bounding_box_collision(sx - width/2, sy - height/2, width, height, assx - aswidth/2, assy - asheight/2, aswidth, asheight));
 }

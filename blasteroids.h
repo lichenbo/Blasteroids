@@ -12,3 +12,5 @@ enum MKEYS {
 inline double DEGTORAD(float deg) {
 	return deg * 3.14159 / 180;
 }
+
+

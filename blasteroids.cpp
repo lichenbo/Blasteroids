@@ -13,9 +13,11 @@ int main() {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	// linkedlist of the asteroids which are still on the screen
-	std::list<Asteroid*> as_list;
+	std::list<Asteroid*> asteroids_list;
 	// pointer to the current spaceship
 	Spaceship *cur_spaceship = NULL;
+	// linkedlist of blasts which are still on the screen
+	std::list<Blast*> blasts_list;
 
 	bool key[5] = {false, false, false, false, false};
 	bool doexit = false;
@@ -88,14 +90,15 @@ int main() {
 		   /* We create an asteroid every 0.5 seconds */
 		   if (time - old_time > 0.5) {
 			   Asteroid* as = new Asteroid();
-			   as_list.push_back(as);
+			   asteroids_list.push_back(as);
 			   old_time = time;
 		   }
 
 		   /* We refresh the screen every timer event activated */
 		   std::list<Asteroid*>::iterator i;
-		   for(i = as_list.begin(); i != as_list.end(); ++i) {
+		   for(i = asteroids_list.begin(); i != asteroids_list.end(); ++i) {
 		      (*i)->update();
+			  (*i)->collisionDetect(cur_spaceship, blasts_list);
 			  (*i)->draw();
 		   }
 		   // </Asteroids>

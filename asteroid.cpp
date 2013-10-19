@@ -4,8 +4,6 @@
 #include <iostream>
 #include <time.h>
 
-using namespace std;
-
 Asteroid::Asteroid(void)
 {
 	color = al_map_rgb(255,255,255);
@@ -18,6 +16,8 @@ Asteroid::Asteroid(void)
 	scale = 1;
 	heading = DEGTORAD(rand() % 360);
 	gone = false;
+	width = 20/scale;
+	height = 15/scale;
 	if (SCREEN_H*sx > SCREEN_W*sy && sx*sy*4 < SCREEN_H*SCREEN_W) {
 		sy = 0;
 	} else if (SCREEN_H*sx > SCREEN_W*sy) {
@@ -71,5 +71,13 @@ void Asteroid::update(void) {
 	   sy = 0;
 	} else if (sy < 0) {
 	   sy = SCREEN_H/scale;
+	}
+}
+
+void Asteroid::collisionDetect(Spaceship* spaceship, std::list<Blast*> &blastlist){
+	bool collisionWithSpaceship = spaceship->collisionWithAsteroid(sx,sy,width,height);
+	std::list<Blast*>::iterator itBlast;
+	for (itBlast = blastlist.begin(); itBlast != blastlist.end(); itBlast++) {
+		bool collisionWithBlast = (*itBlast)->collisionWithAsteroid(sx,sy,width,height);
 	}
 }

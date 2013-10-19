@@ -1,5 +1,11 @@
 #pragma once
 #include "flying.h"
+#include "spaceship.h"
+#include "blast.h"
+#include <list>
+
+using namespace std;
+
 class Asteroid :
 	public Flying
 {
@@ -12,5 +18,6 @@ public:
 	~Asteroid(void);
 	void draw(void);
 	void update(void);
+	void collisionDetect(Spaceship*, std::list<Blast*>&);
 };
 
