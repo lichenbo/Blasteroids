@@ -24,6 +24,7 @@ void Spaceship::draw(void) {
 	al_translate_transform(&transform, sx, sy);
 	al_use_transform(&transform);
 
+	al_init_primitives_addon();
 	al_draw_line(-8, 9, 0, -11, this->color, 3.0f);
 	al_draw_line(0, -11, 8, 9, this->color, 3.0f);
 	al_draw_line(-6, 4, -1, 4, this->color, 3.0f);

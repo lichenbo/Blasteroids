@@ -15,6 +15,8 @@ int main() {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	std::list<Asteroid*> as_list;
+	Spaceship *cur_spaceship = NULL;
+
 	bool key[4] = {false, false, false, false};
 	bool redraw = true;
 	bool doexit = false;
@@ -62,6 +64,10 @@ int main() {
    int old_time = 0;
    int ship_remain = 3;
 
+   if (ship_remain > 0) {
+	   cur_spaceship = new Spaceship(); 
+   }
+
    while(!doexit) {
 	   ALLEGRO_EVENT ev;
 	   al_wait_for_event(event_queue, &ev);
@@ -80,6 +86,8 @@ int main() {
 		   for(i = as_list.begin(); i != as_list.end(); ++i) {
 		      (*i)->update();
 			  (*i)->draw();
+			  cur_spaceship->update();
+			  cur_spaceship->draw();
 		   }
 		   al_flip_display();
 		   al_clear_to_color(al_map_rgb(255,0,0));
