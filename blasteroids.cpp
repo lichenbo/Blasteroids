@@ -6,10 +6,6 @@
 #include <iostream>
 using namespace std;
 
-// Serve for keyboard events
-enum MKEYS {
-	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE
-};
 
 int main() {
 	/* Maintained for the global environment of the game */
@@ -22,7 +18,6 @@ int main() {
 	Spaceship *cur_spaceship = NULL;
 
 	bool key[5] = {false, false, false, false, false};
-	bool redraw = true;
 	bool doexit = false;
 
 	/* initialization: output is comment */
@@ -106,7 +101,7 @@ int main() {
 		   // </Asteroids>
 
 		   // <Spaceship>
-		   cur_spaceship->update();
+		   cur_spaceship->update(key);
 		   cur_spaceship->draw();
 		   // </Spaceship>
 
@@ -141,10 +136,8 @@ int main() {
             case ALLEGRO_KEY_ESCAPE:
                doexit = true;
                break; 
-		   
-		   
 		   }
-	   
+
 	   }
 	   else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 		   switch(ev.keyboard.keycode) {
@@ -168,7 +161,6 @@ int main() {
 				key[KEY_SPACE] = false;
 				break;
 		   }
-	   
 	   }
    }
    al_destroy_timer(timer);

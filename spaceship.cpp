@@ -1,12 +1,14 @@
 #include "spaceship.h"
 #include "blasteroids.h"
+#include <cmath>
 
 Spaceship::Spaceship(void)
 {
 	sx = SCREEN_W / 2;
 	sy = SCREEN_H / 2;
 	color = al_map_rgb(0,255,0);
-	heading = 0;
+	// initial heading is right up to the sky
+	heading = DEGTORAD(90);
 	speed = 10;
 	gone = false;
 
@@ -20,7 +22,8 @@ Spaceship::~Spaceship(void)
 void Spaceship::draw(void) {
 	ALLEGRO_TRANSFORM transform;
 	al_identity_transform(&transform);
-	al_rotate_transform(&transform, heading * 3.14159 / 180);		// Convert degree to radius.
+	// adjust the heading match the drawing
+	al_rotate_transform(&transform, DEGTORAD(90)-heading);
 	al_translate_transform(&transform, sx, sy);
 	al_use_transform(&transform);
 
@@ -33,5 +36,45 @@ void Spaceship::draw(void) {
 }
 
 void Spaceship::update(void) {
+	// nothing changed
+}
+
+void Spaceship::update(bool key[]) {
+
+	// update with key stroke
+	if (key[KEY_UP]) {
+		sx = sx + cos(heading);
+		sy = sy - sin(heading);
+	}
+	if (key[KEY_DOWN]) {
+		sx = sx - cos(heading);
+		sy = sy + sin(heading);
+	}
+	if (key[KEY_LEFT]) {
+		heading += DEGTORAD(5);
+	}
+	if (key[KEY_RIGHT]) {
+		heading -= DEGTORAD(5);
+	}
+	if (key[KEY_SPACE]) {
+	
+	}
+
+	// boundary for spaceship
+	if (sx < 0) {
+		sx = 0;
+	} else if (sx > SCREEN_W) {
+		sx = SCREEN_W;
+	}
+	if (sy < 0) {
+		sy = 0;
+	} else if (sy > SCREEN_H) {
+		sy = SCREEN_H;
+	}
+	assert(sx >= 0 && sx <= SCREEN_W);
+	assert(sy >= 0 && sy <= SCREEN_H);
+
+	// collision detection
+
 
 }

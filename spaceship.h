@@ -8,5 +8,6 @@ public:
 	~Spaceship(void);
 	void draw(void);
 	void update(void);
+	void update(bool[]);
 };
 

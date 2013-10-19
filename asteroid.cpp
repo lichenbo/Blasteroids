@@ -10,13 +10,13 @@ Asteroid::Asteroid(void)
 {
 	color = al_map_rgb(255,255,255);
 	srand((unsigned int)time(NULL));
-	twist = rand() % 360 * 3.14159 / 180;
+	twist = DEGTORAD(rand() % 360);
 	speed = rand() % 5 + 3;
-	rot_velocity = rand() % 10 * 3.14159 / 180;
+	rot_velocity = DEGTORAD(rand() % 10);
 	sx = rand() % SCREEN_W;
 	sy = rand() % SCREEN_H;
 	scale = 1;
-	heading = rand() % 360 * 3.14159 / 180;
+	heading = DEGTORAD(rand() % 360);
 	gone = false;
 	if (SCREEN_H*sx > SCREEN_W*sy && sx*sy*4 < SCREEN_H*SCREEN_W) {
 		sy = 0;
