@@ -18,6 +18,6 @@ public:
 	~Asteroid(void);
 	void draw(void);
 	void update(void);
-	void collisionDetect(Spaceship*, std::list<Blast*>&);
+	void collisionDetect(Spaceship*);
 };
 

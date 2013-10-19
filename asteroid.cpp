@@ -74,10 +74,11 @@ void Asteroid::update(void) {
 	}
 }
 
-void Asteroid::collisionDetect(Spaceship* spaceship, std::list<Blast*> &blastlist){
+void Asteroid::collisionDetect(Spaceship* spaceship){
 	bool collisionWithSpaceship = spaceship->collisionWithAsteroid(sx,sy,width,height);
 	std::list<Blast*>::iterator itBlast;
-	for (itBlast = blastlist.begin(); itBlast != blastlist.end(); itBlast++) {
-		bool collisionWithBlast = (*itBlast)->collisionWithAsteroid(sx,sy,width,height);
+	bool collisionWithBlast = spaceship->asteroidCollisionWithBlast(sx, sy, width, height);
+	if (collisionWithSpaceship) {
+		cout << "Collision with spaceship!" << endl;
 	}
 }

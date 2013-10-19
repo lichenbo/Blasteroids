@@ -1,6 +1,7 @@
 #include "spaceship.h"
 #include "blasteroids.h"
 #include <cmath>
+#include <list>
 
 Spaceship::Spaceship(void)
 {
@@ -13,6 +14,8 @@ Spaceship::Spaceship(void)
 	gone = false;
 	width = 8;
 	height = 20;
+	// linkedlist of blasts which are still on the screen
+	std::list<Blast*> blasts_list;
 
 }
 
@@ -34,7 +37,11 @@ void Spaceship::draw(void) {
 	al_draw_line(0, -11, 8, 9, this->color, 3.0f);
 	al_draw_line(-6, 4, -1, 4, this->color, 3.0f);
 	al_draw_line(6, 4, 1, 4, this->color, 3.0f);
-
+	
+	std::list<Blast*>::iterator itBlast;
+	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
+		(*itBlast)->draw();
+	} 
 }
 
 void Spaceship::update(void) {
@@ -43,7 +50,6 @@ void Spaceship::update(void) {
 
 void Spaceship::update(bool key[]) {
 	
-
 	// update with key stroke
 	if (key[KEY_UP]) {
 		sx = sx + cos(heading);
@@ -60,7 +66,15 @@ void Spaceship::update(bool key[]) {
 		heading -= DEGTORAD(5);
 	}
 	if (key[KEY_SPACE]) {
-	
+		float time = al_current_time();
+		// static to avoid assignment every time
+		static float old_time = 0;
+		if (time - old_time > 0.1) {
+			Blast* newBlast = new Blast(sx, sy, heading);
+			blasts_list.push_back(newBlast);
+			old_time = time;
+		}
+
 	}
 
 	// boundary for spaceship
@@ -76,8 +90,29 @@ void Spaceship::update(bool key[]) {
 	}
 	assert(sx >= 0 && sx <= SCREEN_W);
 	assert(sy >= 0 && sy <= SCREEN_H);
+
+	std::list<Blast*>::iterator itBlast;
+	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end();) {
+		(*itBlast)->update();
+
+		if ((*itBlast)->isGone()) {
+			blasts_list.erase(itBlast++);
+		} else {
+			itBlast++;
+		}
+	} 
 }
 
 bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
 	return (bounding_box_collision(sx - width/2, sy - height/2, width, height, assx - aswidth/2, assy - asheight/2, aswidth, asheight));
+}
+
+bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth, float asheight) {
+	std::list<Blast*>::iterator itBlast;
+	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
+		if ((*itBlast)->collisionWithAsteroid(assx, assy, aswidth, asheight)) {
+			return true;
+		}
+	} 
+	return false;
 }

@@ -16,8 +16,6 @@ int main() {
 	std::list<Asteroid*> asteroids_list;
 	// pointer to the current spaceship
 	Spaceship *cur_spaceship = NULL;
-	// linkedlist of blasts which are still on the screen
-	std::list<Blast*> blasts_list;
 
 	bool key[5] = {false, false, false, false, false};
 	bool doexit = false;
@@ -67,8 +65,6 @@ int main() {
  
    al_start_timer(timer);
  
-   // old_time for watching the appication clock, should be running till the program ends
-   int old_time = 0;
    // ship_remain in total
    int ship_remain = 3;
 
@@ -86,7 +82,9 @@ int main() {
 	   if(ev.type == ALLEGRO_EVENT_TIMER) {
 		   
 		   // <Asteroids>
-		   int time = al_current_time();
+		   float time = al_current_time();
+		   // old_time for watching the appication clock, should be running till the program ends
+		   static float old_time = 0;
 		   /* We create an asteroid every 0.5 seconds */
 		   if (time - old_time > 0.5) {
 			   Asteroid* as = new Asteroid();
@@ -98,7 +96,7 @@ int main() {
 		   std::list<Asteroid*>::iterator i;
 		   for(i = asteroids_list.begin(); i != asteroids_list.end(); ++i) {
 		      (*i)->update();
-			  (*i)->collisionDetect(cur_spaceship, blasts_list);
+			  (*i)->collisionDetect(cur_spaceship);
 			  (*i)->draw();
 		   }
 		   // </Asteroids>
@@ -107,6 +105,10 @@ int main() {
 		   cur_spaceship->update(key);
 		   cur_spaceship->draw();
 		   // </Spaceship>
+
+		   // <Blast>
+		   // Blast is a child of spaceship, so the spaceship will update it and draw it
+		   // </Blast>
 
 		   al_flip_display();
 		   al_clear_to_color(al_map_rgb(255,0,0));
