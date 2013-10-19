@@ -48,6 +48,7 @@ void Blast::update(void) {
 
 bool Blast::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
 
+	return false;
 	return true;
 }
 
