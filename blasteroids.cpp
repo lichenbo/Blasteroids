@@ -127,6 +127,14 @@ int main() {
 		   // Blast is a child of spaceship, so the spaceship will update it and draw it
 		   // </Blast>
 
+		   ALLEGRO_TRANSFORM transform;
+		   al_identity_transform(&transform);
+		   al_use_transform(&transform);
+		   // <Stat>
+		   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
+		   al_draw_textf(font24, al_map_rgb(0,0,0),0,20,ALLEGRO_ALIGN_LEFT,"Score: %d",score);
+		   // </Stat>
+
 		   al_flip_display();
 		   al_clear_to_color(al_map_rgb(255,0,0));
 	   }
@@ -199,13 +207,7 @@ int main() {
 		   }
 	   }
 
-	   ALLEGRO_TRANSFORM transform;
-	   al_identity_transform(&transform);
-	   al_use_transform(&transform);
-	   // <Stat>
-	   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
-	   al_draw_textf(font24, al_map_rgb(0,0,0),0,20,ALLEGRO_ALIGN_LEFT,"Score: %d",score);
-	   // </Stat>
+	   
    }
 
    char message[100];
