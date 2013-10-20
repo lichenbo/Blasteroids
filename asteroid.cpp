@@ -40,7 +40,7 @@ void Asteroid::draw(void) {
 		ALLEGRO_TRANSFORM transform;
 		al_identity_transform(&transform);
 		al_rotate_transform(&transform, twist);
-		al_translate_transform(&transform, sx, sy);
+		al_translate_transform(&transform, sx*scale, sy*scale);
 		al_scale_transform(&transform,1/scale,1/scale);
 		al_use_transform(&transform);
 
@@ -65,15 +65,15 @@ void Asteroid::update(void) {
 		twist += rot_velocity;
 		sx += cos(heading) * speed;
 		sy += sin(heading) * speed;
-		if (sx > SCREEN_W*scale) {
+		if (sx > SCREEN_W) {
 		   sx = 0;
 		} else if (sx < 0) {
-		   sx = SCREEN_W*scale;
+		   sx = SCREEN_W;
 		}
-		if (sy > SCREEN_H*scale) {
+		if (sy > SCREEN_H) {
 		   sy = 0;
 		} else if (sy < 0) {
-		   sy = SCREEN_H*scale;
+		   sy = SCREEN_H;
 		}
 	} else {
 		
@@ -87,7 +87,6 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 	bool collisionWithBlast = spaceship->asteroidCollisionWithBlast(sx, sy, width, height);
 	if (collisionWithSpaceship) {
 		cout << "Collision with spaceship!" << endl;
-		gone = true;
 	}
 	if (collisionWithBlast) {
 		cout << "Collision with Blast!" << endl;
@@ -96,11 +95,11 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 			Asteroid* left = new Asteroid(2);
 			Asteroid* right = new Asteroid(2);
 			left->heading = heading - DEGTORAD(20);
-			left->sx = sx * left->scale;
-			left->sy = sy * left->scale;
+			left->sx = sx/scale;
+			left->sy = sy/scale;
 			right->heading = heading + DEGTORAD(20);
-			right->sx = sx * right->scale;
-			right->sy = sy * right->scale;
+			right->sx = sx/scale;
+			right->sy = sy/scale;
 			list.push_back(left);
 			list.push_back(right);
 			return true;
