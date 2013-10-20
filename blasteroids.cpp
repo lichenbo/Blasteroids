@@ -74,7 +74,7 @@ int main() {
 
 
    /* main loop */
-   while(!doexit && ship_remain >= 0) {
+   while(!doexit) {
 	   if (cur_spaceship == NULL) {
 		   cur_spaceship = new Spaceship();
 	   }
@@ -92,7 +92,7 @@ int main() {
 		   // old_time for watching the appication clock, should be running till the program ends
 		   static float old_time = 0;
 		   /* We create an asteroid every 1.0 seconds */
-		   if (time - old_time > 1.0) {
+		   if (time - old_time > 2.0) {
 			   Asteroid* as = new Asteroid(1);
 			   asteroids_list.push_back(as);
 			   score = score + 10;
@@ -200,6 +200,7 @@ int main() {
 		   ship_remain--;
 		   list<Asteroid*>::iterator itAsteroid;
 		   for (itAsteroid = asteroids_list.begin(); itAsteroid != asteroids_list.end();){
+			   cout << asteroids_list.end() << endl;
 			   Asteroid* delAsteroid = *itAsteroid;
 			   asteroids_list.erase(itAsteroid++);
 			   delete delAsteroid;
@@ -207,12 +208,16 @@ int main() {
 		   }
 	   }
 
+	   if (ship_remain < 0) {
+		   char message[100];
+		   sprintf_s(message, "You have reached a score of: %d", score);
+		   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
+		   ship_remain = 2;
+		   score = 0;
+	   }
 	   
    }
 
-   char message[100];
-   sprintf_s(message, "You have reached a score of: %d", score);
-   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
 
    al_destroy_timer(timer);
    al_destroy_display(display);
