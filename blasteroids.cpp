@@ -61,25 +61,36 @@ int main() {
 
 
    // begin to work
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_FONT* font24 = al_load_font("arial.ttf", 24, 0);
    al_clear_to_color(al_map_rgb(255,0,0));
  
    al_start_timer(timer);
  
    // ship_remain in total
    int ship_remain = 3;
+   int score = 0;
 
-   // create a ship
-   if (ship_remain > 0) {
-	   cur_spaceship = new Spaceship(); 
-   }
 
    /* main loop */
-   while(!doexit) {
+   while(!doexit && ship_remain >= 0) {
+	   if (cur_spaceship == NULL) {
+		   cur_spaceship = new Spaceship();
+	   }
+	   assert(cur_spaceship != NULL);
+
 	   ALLEGRO_EVENT ev;
 	   al_wait_for_event(event_queue, &ev);
-	   //cout << al_current_time() << endl;	// console log for time
 	   // <TIMER>
 	   if(ev.type == ALLEGRO_EVENT_TIMER) {
+		   
+		   ALLEGRO_TRANSFORM transform;
+		   al_identity_transform(&transform);
+		   al_use_transform(&transform);
+		   // <Stat>
+		   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
+		   // </Stat>
 		   
 		   // <Asteroids>
 		   float time = al_current_time();
@@ -174,6 +185,13 @@ int main() {
 				key[KEY_SPACE] = false;
 				break;
 		   }
+	   }
+
+	   if (cur_spaceship->isGone()) {
+		   delete cur_spaceship;
+		   cout << "Died!" << endl;
+		   cur_spaceship = NULL;
+		   ship_remain--;
 	   }
    }
    al_destroy_timer(timer);

@@ -87,6 +87,8 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 	bool collisionWithBlast = spaceship->asteroidCollisionWithBlast(sx, sy, width, height);
 	if (collisionWithSpaceship) {
 		cout << "Collision with spaceship!" << endl;
+		gone = true;
+		return true;
 	}
 	if (collisionWithBlast) {
 		cout << "Collision with Blast!" << endl;
@@ -102,7 +104,6 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 			right->sy = sy/scale;
 			list.push_back(left);
 			list.push_back(right);
-			return true;
 		}
 	}
 	return false;

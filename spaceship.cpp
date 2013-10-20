@@ -12,8 +12,8 @@ Spaceship::Spaceship(void)
 	heading = DEGTORAD(90);
 	speed = 8;
 	gone = false;
-	width = 8;
-	height = 20;
+	width = 21.5;
+	height = 21.5;
 	// linkedlist of blasts which are still on the screen
 	std::list<Blast*> blasts_list;
 
@@ -107,7 +107,12 @@ void Spaceship::update(bool key[]) {
 }
 
 bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
-	return (bounding_box_collision(sx - width/2, sy - height/2, width, height, assx - aswidth/2, assy - asheight/2, aswidth, asheight));
+	if (bounding_box_collision(sx - width/2, sy - height/2, width, height, assx - aswidth/2, assy - asheight/2, aswidth, asheight)) {
+		gone = true;
+		return true;
+	}
+	return false;
+
 }
 
 bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth, float asheight) {
@@ -119,4 +124,8 @@ bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth
 		}
 	} 
 	return false;
+}
+
+bool Spaceship::isGone(){
+	return gone;
 }
