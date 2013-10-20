@@ -77,7 +77,7 @@ int main() {
    while(!doexit) {
 	   ALLEGRO_EVENT ev;
 	   al_wait_for_event(event_queue, &ev);
-	   cout << al_current_time() << endl;	// console log for time
+	   //cout << al_current_time() << endl;	// console log for time
 	   // <TIMER>
 	   if(ev.type == ALLEGRO_EVENT_TIMER) {
 		   
@@ -85,19 +85,27 @@ int main() {
 		   float time = al_current_time();
 		   // old_time for watching the appication clock, should be running till the program ends
 		   static float old_time = 0;
-		   /* We create an asteroid every 0.5 seconds */
-		   if (time - old_time > 0.5) {
-			   Asteroid* as = new Asteroid();
+		   /* We create an asteroid every 1.0 seconds */
+		   if (time - old_time > 1.0) {
+			   Asteroid* as = new Asteroid(1);
 			   asteroids_list.push_back(as);
 			   old_time = time;
 		   }
 
 		   /* We refresh the screen every timer event activated */
 		   std::list<Asteroid*>::iterator i;
-		   for(i = asteroids_list.begin(); i != asteroids_list.end(); ++i) {
+		   for(i = asteroids_list.begin(); i != asteroids_list.end();) {
 		      (*i)->update();
-			  (*i)->collisionDetect(cur_spaceship);
+			  (*i)->collisionDetect(cur_spaceship, asteroids_list);
 			  (*i)->draw();
+			  if ((*i)->isGone()) {
+				  Asteroid* delAsteroid = *i;
+				  asteroids_list.erase(i++);
+				  delete delAsteroid;
+				  delAsteroid = NULL;
+			  } else {
+				i++;
+			  }
 		   }
 		   // </Asteroids>
 

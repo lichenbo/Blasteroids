@@ -10,7 +10,7 @@ Spaceship::Spaceship(void)
 	color = al_map_rgb(0,255,0);
 	// initial heading is right up to the sky
 	heading = DEGTORAD(90);
-	speed = 10;
+	speed = 8;
 	gone = false;
 	width = 8;
 	height = 20;
@@ -111,6 +111,7 @@ bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, flo
 }
 
 bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth, float asheight) {
+	assert(aswidth > 0 && asheight);
 	std::list<Blast*>::iterator itBlast;
 	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
 		if ((*itBlast)->collisionWithAsteroid(assx, assy, aswidth, asheight)) {

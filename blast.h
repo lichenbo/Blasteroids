@@ -3,6 +3,8 @@
 class Blast :
 	public Flying
 {
+private:
+	bool pointInAsteroid(float x, float y, float assx, float assy, float width, float height);
 public:
 	Blast(void);
 	Blast(float,float,float);

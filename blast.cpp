@@ -47,11 +47,26 @@ void Blast::update(void) {
 }
 
 bool Blast::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
-
+	// get line segment info
+	float x1 = sx + cos(heading)*21;
+	float y1 = sy - sin(heading)*21;
+	float x2 = sx + cos(heading)*11;
+	float y2 = sy - sin(heading)*11;
+	if (pointInAsteroid(x1,y1,assx,assy,aswidth,asheight) || pointInAsteroid(x2,y2,assx,assy,aswidth,asheight)) {
+		gone = true;
+		std::cout << "Bam" << std::endl;
+		return true;
+	}
 	return false;
-	return true;
 }
 
 bool Blast::isGone(){
 	return gone;
+}
+
+bool Blast::pointInAsteroid(float x, float y, float assx, float assy, float aswidth, float asheight) {
+	if (x > assx-aswidth/2 && x < assx+aswidth/2 && y > assy-asheight/2 && y < assy+asheight/2) {
+		return true;
+	}
+	return false;
 }
