@@ -69,7 +69,7 @@ int main() {
    al_start_timer(timer);
  
    // ship_remain in total
-   int ship_remain = 3;
+   int ship_remain = 2;
    int score = 0;
 
 
@@ -85,12 +85,7 @@ int main() {
 	   // <TIMER>
 	   if(ev.type == ALLEGRO_EVENT_TIMER) {
 		   
-		   ALLEGRO_TRANSFORM transform;
-		   al_identity_transform(&transform);
-		   al_use_transform(&transform);
-		   // <Stat>
-		   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
-		   // </Stat>
+
 		   
 		   // <Asteroids>
 		   float time = al_current_time();
@@ -100,7 +95,9 @@ int main() {
 		   if (time - old_time > 1.0) {
 			   Asteroid* as = new Asteroid(1);
 			   asteroids_list.push_back(as);
+			   score = score + 10;
 			   old_time = time;
+			   
 		   }
 
 		   /* We refresh the screen every timer event activated */
@@ -114,6 +111,7 @@ int main() {
 				  asteroids_list.erase(i++);
 				  delete delAsteroid;
 				  delAsteroid = NULL;
+				  score = score + 50;
 			  } else {
 				i++;
 			  }
@@ -192,8 +190,28 @@ int main() {
 		   cout << "Died!" << endl;
 		   cur_spaceship = NULL;
 		   ship_remain--;
+		   list<Asteroid*>::iterator itAsteroid;
+		   for (itAsteroid = asteroids_list.begin(); itAsteroid != asteroids_list.end();){
+			   Asteroid* delAsteroid = *itAsteroid;
+			   asteroids_list.erase(itAsteroid++);
+			   delete delAsteroid;
+			   delAsteroid = NULL;
+		   }
 	   }
+
+	   ALLEGRO_TRANSFORM transform;
+	   al_identity_transform(&transform);
+	   al_use_transform(&transform);
+	   // <Stat>
+	   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
+	   al_draw_textf(font24, al_map_rgb(0,0,0),0,20,ALLEGRO_ALIGN_LEFT,"Score: %d",score);
+	   // </Stat>
    }
+
+   char message[100];
+   sprintf_s(message, "You have reached a score of: %d", score);
+   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
+
    al_destroy_timer(timer);
    al_destroy_display(display);
    al_destroy_event_queue(event_queue);
