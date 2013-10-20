@@ -200,7 +200,6 @@ int main() {
 		   ship_remain--;
 		   list<Asteroid*>::iterator itAsteroid;
 		   for (itAsteroid = asteroids_list.begin(); itAsteroid != asteroids_list.end();){
-			   cout << asteroids_list.end() << endl;
 			   Asteroid* delAsteroid = *itAsteroid;
 			   asteroids_list.erase(itAsteroid++);
 			   delete delAsteroid;
