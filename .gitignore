@@ -3,3 +3,5 @@ Debug/
 *.sdf
 *.suo
 *.log
+*.sln
+*.vcxproj

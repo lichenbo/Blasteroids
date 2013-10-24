@@ -82,11 +82,10 @@ int main() {
 
 	   ALLEGRO_EVENT ev;
 	   al_wait_for_event(event_queue, &ev);
+
 	   // <TIMER>
 	   if(ev.type == ALLEGRO_EVENT_TIMER) {
-		   
 
-		   
 		   // <Asteroids>
 		   float time = al_current_time();
 		   // old_time for watching the appication clock, should be running till the program ends
@@ -132,14 +131,42 @@ int main() {
 		   al_use_transform(&transform);
 		   // <Stat>
 		   al_draw_textf(font24, al_map_rgb(0,0,0),0,0,ALLEGRO_ALIGN_LEFT,"Life Remaining: %d",ship_remain);
-		   al_draw_textf(font24, al_map_rgb(0,0,0),0,20,ALLEGRO_ALIGN_LEFT,"Score: %d",score);
+		   al_draw_textf(font24, al_map_rgb(0,0,0),0,20,ALLEGRO_ALIGN_LEFT,"Score: %d",score);					  
 		   // </Stat>
 
+		   if (cur_spaceship->isGone()) {
+			   delete cur_spaceship;
+			   cout << "Died!" << endl;
+			   cur_spaceship = NULL;
+			   ship_remain--;
+			   list<Asteroid*>::iterator itAsteroid;
+			   for (itAsteroid = asteroids_list.begin(); itAsteroid != asteroids_list.end();){
+				   Asteroid* delAsteroid = *itAsteroid;
+				   asteroids_list.erase(itAsteroid++);
+				   delete delAsteroid;
+				   delAsteroid = NULL;
+			   }
+		   }
+
+		   // <Display>
 		   al_flip_display();
 		   al_clear_to_color(al_map_rgb(255,0,0));
+		   // </Didplay>
+
+		   if (ship_remain < 0) {
+			   al_stop_timer(timer);
+			   assert (asteroids_list.size() == 0);
+			   char message[100];
+			   sprintf_s(message, "You have reached a score of: %d", score);
+			   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
+			   ship_remain = 2;
+			   score = 0;
+
+		   }
 	   }
 	   // </TIMER>
 
+	   // C style code in C++, use global variable to record keyboard press
 	   // <KEYBOARD>
 	   else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 		   switch(ev.keyboard.keycode) {
@@ -192,31 +219,9 @@ int main() {
 				break;
 		   }
 	   }
+	   // </KEYBOARD>
 
-	   if (cur_spaceship->isGone()) {
-		   delete cur_spaceship;
-		   cout << "Died!" << endl;
-		   cur_spaceship = NULL;
-		   ship_remain--;
-		   list<Asteroid*>::iterator itAsteroid;
-		   for (itAsteroid = asteroids_list.begin(); itAsteroid != asteroids_list.end();){
-			   Asteroid* delAsteroid = *itAsteroid;
-			   asteroids_list.erase(itAsteroid++);
-			   delete delAsteroid;
-			   delAsteroid = NULL;
-		   }
-	   }
-
-	   if (ship_remain < 0) {
-		   char message[100];
-		   sprintf_s(message, "You have reached a score of: %d", score);
-		   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
-		   ship_remain = 2;
-		   score = 0;
-	   }
-	   
    }
-
 
    al_destroy_timer(timer);
    al_destroy_display(display);
