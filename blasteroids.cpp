@@ -6,12 +6,42 @@
 #include <iostream>
 using namespace std;
 
+class DATA{
+public:
+	ALLEGRO_MUTEX *mutex;
+	ALLEGRO_COND *cond;
+	int *score;
+	list<Asteroid*> *asteroids_list;
+	bool ready;
+
+	DATA() : 
+		mutex(al_create_mutex()),
+		cond(al_create_cond()),
+		score(0),
+		asteroids_list(NULL),
+		ready(false) {}
+
+	~DATA(){
+		al_destroy_mutex(mutex);
+		al_destroy_cond(cond);
+	}
+};
+
+void asteroidCreate(list<Asteroid*> &asteroids_list, int &score){
+	Asteroid* as = new Asteroid(1);
+	asteroids_list.push_back(as);
+	score = score + 10;
+	al_rest(1.0);
+}
 
 int main() {
 	/* Maintained for the global environment of the game */
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
+	ALLEGRO_THREAD *thread_1 = NULL;
+	ALLEGRO_THREAD *thread_2 = NULL;
+
 	// linkedlist of the asteroids which are still on the screen
 	std::list<Asteroid*> asteroids_list;
 	// pointer to the current spaceship
@@ -92,11 +122,8 @@ int main() {
 		   static float old_time = 0;
 		   /* We create an asteroid every 1.0 seconds */
 		   if (time - old_time > 2.0) {
-			   Asteroid* as = new Asteroid(1);
-			   asteroids_list.push_back(as);
-			   score = score + 10;
+			   asteroidCreate(asteroids_list, score);
 			   old_time = time;
-			   
 		   }
 
 		   /* We refresh the screen every timer event activated */
@@ -154,14 +181,15 @@ int main() {
 		   // </Didplay>
 
 		   if (ship_remain < 0) {
-			   al_stop_timer(timer);
 			   assert (asteroids_list.size() == 0);
+			   al_stop_timer(timer);
 			   char message[100];
 			   sprintf_s(message, "You have reached a score of: %d", score);
 			   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
 			   ship_remain = 2;
 			   score = 0;
-
+			   al_start_timer(timer);
+			   
 		   }
 	   }
 	   // </TIMER>
