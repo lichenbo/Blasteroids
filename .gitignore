@@ -5,3 +5,5 @@ Debug/
 *.log
 *.sln
 *.vcxproj
+*.psess
+*.vsp
