@@ -48,7 +48,7 @@ void Spaceship::update(void) {
 	// nothing changed
 }
 
-void Spaceship::update(bool key[]) {
+void Spaceship::update(const bool key[]) {
 	
 	// update with key stroke
 	if (key[KEY_UP]) {
