@@ -109,6 +109,6 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 	return false;
 }
 
-bool Asteroid::isGone() {
+bool Asteroid::isGone() const{
 	return gone;
 }

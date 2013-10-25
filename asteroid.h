@@ -19,6 +19,6 @@ public:
 	void draw(void);
 	void update(void);
 	bool collisionDetect(Spaceship*, list<Asteroid*>&);
-	bool isGone();
+	bool isGone() const;
 };
 
