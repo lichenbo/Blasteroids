@@ -12,12 +12,13 @@ class Asteroid :
 private:
 	float twist;
 	float rot_velocity;
-	float scale;public:
-	Asteroid(int scale);
+	float scale;
+public:
+	Asteroid(int scale = 1);
 	~Asteroid(void);
 	void draw(void);
 	void update(void);
-	bool collisionDetect(const Spaceship*, list<Asteroid*>&);
-	bool isGone();
+	bool collisionDetect(Spaceship* spaceship, list<Asteroid*>& list);
+	bool isGone() const;
 };
 

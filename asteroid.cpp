@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 
-Asteroid::Asteroid(int scale = 1)
+Asteroid::Asteroid(int scale) // default scale is 1
 {
 	color = al_map_rgb(255,255,255);
 	srand((unsigned int)time(NULL));
@@ -82,7 +82,7 @@ void Asteroid::update(void) {
 }
 
 /* True stands for it creating another two tiny asteroid , False otherwise */
-bool Asteroid::collisionDetect(const Spaceship* spaceship, list<Asteroid*>& list){
+bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 	bool collisionWithSpaceship = spaceship->collisionWithAsteroid(sx,sy,width,height);
 	bool collisionWithBlast = spaceship->asteroidCollisionWithBlast(sx, sy, width, height);
 	if (collisionWithSpaceship) {
@@ -109,6 +109,6 @@ bool Asteroid::collisionDetect(const Spaceship* spaceship, list<Asteroid*>& list
 	return false;
 }
 
-bool Asteroid::isGone() {
+bool Asteroid::isGone() const{
 	return gone;
 }

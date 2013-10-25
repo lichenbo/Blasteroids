@@ -28,7 +28,7 @@ public:
 };
 
 void asteroidCreate(list<Asteroid*> &asteroids_list, int &score){
-	Asteroid* as = new Asteroid(1);
+	Asteroid* as = new Asteroid();
 	asteroids_list.push_back(as);
 	score = score + 10;
 	al_rest(1.0);
