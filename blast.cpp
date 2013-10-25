@@ -60,7 +60,7 @@ bool Blast::collisionWithAsteroid(float assx, float assy, float aswidth, float a
 	return false;
 }
 
-bool Blast::isGone(){
+bool Blast::isGone() const{
 	return gone;
 }
 

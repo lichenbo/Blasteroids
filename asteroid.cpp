@@ -6,6 +6,7 @@
 
 Asteroid::Asteroid(int scale) // default scale is 1
 {
+	const float BORDER_SIZE = 25;
 	color = al_map_rgb(255,255,255);
 	srand((unsigned int)time(NULL));
 	twist = DEGTORAD(rand() % 360);
@@ -16,8 +17,8 @@ Asteroid::Asteroid(int scale) // default scale is 1
 	this->scale = scale;
 	heading = DEGTORAD(rand() % 360);
 	gone = false;
-	width = 25;
-	height = 25;
+	width = BORDER_SIZE;
+	height = BORDER_SIZE;
 	if (SCREEN_H*sx > SCREEN_W*sy && sx*sy*4 < SCREEN_H*SCREEN_W) {
 		sy = 0;
 	} else if (SCREEN_H*sx > SCREEN_W*sy) {

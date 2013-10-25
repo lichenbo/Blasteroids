@@ -31,7 +31,7 @@ void asteroidCreate(list<Asteroid*> &asteroids_list, int &score){
 	Asteroid* as = new Asteroid();
 	asteroids_list.push_back(as);
 	score = score + 10;
-	al_rest(1.0);
+	//al_rest(1.0);
 }
 
 int main() {
@@ -67,7 +67,7 @@ int main() {
 		return -1;
    }
  
-   display = al_create_display(640, 480);
+   display = al_create_display(SCREEN_W, SCREEN_H);
    if(!display) {
       fprintf(stderr, "failed to create display!\n");
       return -1;
@@ -127,7 +127,7 @@ int main() {
 		   }
 
 		   /* We refresh the screen every timer event activated */
-		   std::list<Asteroid*>::iterator i;
+		   std::list<Asteroid*>::const_iterator i;
 		   for(i = asteroids_list.begin(); i != asteroids_list.end();) {
 		      (*i)->update();
 			  (*i)->collisionDetect(cur_spaceship, asteroids_list);

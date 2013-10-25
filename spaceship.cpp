@@ -118,9 +118,9 @@ bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, flo
 
 }
 
-bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth, float asheight) {
+bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth, float asheight) const{
 	assert(aswidth > 0 && asheight > 0);
-	std::list<Blast*>::iterator itBlast;
+	std::list<Blast*>::const_iterator itBlast;
 	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
 		if (!(*itBlast)->isGone() && (*itBlast)->collisionWithAsteroid(assx, assy, aswidth, asheight)) {
 			return true;

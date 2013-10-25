@@ -12,6 +12,6 @@ public:
 	void draw(void) const;
 	void update(void);
 	bool collisionWithAsteroid(float,float,float,float);
-	bool isGone();
+	bool isGone() const;
 };
 

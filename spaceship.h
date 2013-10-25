@@ -15,7 +15,7 @@ public:
 	void update(void);
 	void update(const bool[]);
 	bool collisionWithAsteroid(float sx, float sy, float width, float height);
-	bool asteroidCollisionWithBlast(float sx, float sy, float width, float height);
+	bool asteroidCollisionWithBlast(float sx, float sy, float width, float height) const;
 	bool isGone() const;
 };
 
