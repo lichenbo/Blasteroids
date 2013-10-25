@@ -12,7 +12,8 @@ class Asteroid :
 private:
 	float twist;
 	float rot_velocity;
-	float scale;public:
+	float scale;
+public:
 	Asteroid(int scale);
 	~Asteroid(void);
 	void draw(void);
