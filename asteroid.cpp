@@ -35,7 +35,7 @@ Asteroid::~Asteroid(void)
 {
 }
 
-void Asteroid::draw(void) {
+void Asteroid::draw(void) const{
 	if (!gone) {
 		ALLEGRO_TRANSFORM transform;
 		al_identity_transform(&transform);

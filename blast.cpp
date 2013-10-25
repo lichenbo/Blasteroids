@@ -23,7 +23,7 @@ Blast::~Blast(void)
 {
 }
 
-void Blast::draw(void) {
+void Blast::draw(void) const{
 	if (!gone) {
 		ALLEGRO_TRANSFORM transform;
 		al_identity_transform(&transform);

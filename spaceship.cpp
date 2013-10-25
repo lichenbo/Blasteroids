@@ -5,6 +5,7 @@
 
 Spaceship::Spaceship(void)
 {
+	const float BORDER_SIZE = 21.5;
 	sx = SCREEN_W / 2;
 	sy = SCREEN_H / 2;
 	color = al_map_rgb(0,255,0);
@@ -12,8 +13,8 @@ Spaceship::Spaceship(void)
 	heading = DEGTORAD(90);
 	speed = 8;
 	gone = false;
-	width = 21.5;
-	height = 21.5;
+	width = BORDER_SIZE;
+	height = BORDER_SIZE;
 	// linkedlist of blasts which are still on the screen
 	std::list<Blast*> blasts_list;
 
@@ -24,7 +25,7 @@ Spaceship::~Spaceship(void)
 {
 }
 
-void Spaceship::draw(void) {
+void Spaceship::draw(void) const{
 	ALLEGRO_TRANSFORM transform;
 	al_identity_transform(&transform);
 	// adjust the heading match the drawing
@@ -38,7 +39,9 @@ void Spaceship::draw(void) {
 	al_draw_line(-6, 4, -1, 4, this->color, 3.0f);
 	al_draw_line(6, 4, 1, 4, this->color, 3.0f);
 	
-	std::list<Blast*>::iterator itBlast;
+	// itBlast is an const pointer, point to an element that cannot be changed
+	// equivalent as const Blast* itBlast;
+	std::list<Blast*>::const_iterator itBlast;
 	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
 		(*itBlast)->draw();
 	} 
@@ -126,6 +129,6 @@ bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth
 	return false;
 }
 
-bool Spaceship::isGone(){
+bool Spaceship::isGone() const {
 	return gone;
 }

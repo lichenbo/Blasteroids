@@ -11,11 +11,11 @@ private:
 public:
 	Spaceship(void);
 	~Spaceship(void);
-	void draw(void);
+	void draw(void) const;
 	void update(void);
 	void update(const bool[]);
 	bool collisionWithAsteroid(float sx, float sy, float width, float height);
 	bool asteroidCollisionWithBlast(float sx, float sy, float width, float height);
-	bool isGone();
+	bool isGone() const;
 };
 

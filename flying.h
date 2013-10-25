@@ -13,7 +13,7 @@ protected:
 	float height;
 	ALLEGRO_COLOR color;
 public:
-	virtual void draw(void) = 0;
+	virtual void draw(void) const = 0;
 	virtual void update(void) = 0;
 };
 

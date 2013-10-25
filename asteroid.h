@@ -16,7 +16,7 @@ private:
 public:
 	Asteroid(int scale = 1);
 	~Asteroid(void);
-	void draw(void);
+	void draw(void) const;
 	void update(void);
 	bool collisionDetect(Spaceship* spaceship, list<Asteroid*>& list);
 	bool isGone() const;

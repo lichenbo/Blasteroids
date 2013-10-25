@@ -9,7 +9,7 @@ public:
 	Blast(void);
 	Blast(float,float,float);
 	~Blast(void);
-	void draw(void);
+	void draw(void) const;
 	void update(void);
 	bool collisionWithAsteroid(float,float,float,float);
 	bool isGone();
