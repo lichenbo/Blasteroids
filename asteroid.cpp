@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 
-Asteroid::Asteroid(int scale)
+Asteroid::Asteroid(int scale = 1)
 {
 	color = al_map_rgb(255,255,255);
 	srand((unsigned int)time(NULL));
