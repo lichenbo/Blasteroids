@@ -136,12 +136,14 @@ int main() {
 				  Asteroid* delAsteroid = *i;
 				  asteroids_list.erase(i++);
 				  delete delAsteroid;
+				  cout << "Asteroid delete"<< endl;
 				  delAsteroid = NULL;
 				  score = score + 50;
 			  } else {
 				i++;
 			  }
 		   }
+		   cout << "Asteroids list size: " << asteroids_list.size() << endl;
 		   // </Asteroids>
 
 		   // <Spaceship>
@@ -163,7 +165,7 @@ int main() {
 
 		   if (cur_spaceship->isGone()) {
 			   delete cur_spaceship;
-			   cout << "Died!" << endl;
+			   cout << "spaceship deleted" << endl;
 			   cur_spaceship = NULL;
 			   ship_remain--;
 			   list<Asteroid*>::iterator itAsteroid;
@@ -171,6 +173,7 @@ int main() {
 				   Asteroid* delAsteroid = *itAsteroid;
 				   asteroids_list.erase(itAsteroid++);
 				   delete delAsteroid;
+				   cout << "Asteroid deleted" << endl;
 				   delAsteroid = NULL;
 			   }
 		   }

@@ -82,7 +82,6 @@ void Asteroid::update(void) {
 	}
 }
 
-/* True stands for it creating another two tiny asteroid , False otherwise */
 bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 	bool collisionWithSpaceship = spaceship->collisionWithAsteroid(sx,sy,width,height);
 	bool collisionWithBlast = spaceship->asteroidCollisionWithBlast(sx, sy, width, height);
@@ -106,6 +105,7 @@ bool Asteroid::collisionDetect(Spaceship* spaceship, list<Asteroid*>& list){
 			list.push_back(left);
 			list.push_back(right);
 		}
+		return true;
 	}
 	return false;
 }

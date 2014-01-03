@@ -2,6 +2,7 @@
 #include "blasteroids.h"
 #include <cmath>
 #include <list>
+#include <iostream>
 
 Spaceship::Spaceship(void)
 {
@@ -102,16 +103,27 @@ void Spaceship::update(const bool key[]) {
 			Blast* delBlast = *itBlast;
 			blasts_list.erase(itBlast++);
 			delete delBlast;
+			std::cout << "blast deleted" << std::endl;
 			delBlast = NULL;
 		} else {
 			itBlast++;
 		}
 	} 
+	std::cout << "Blast list size: " << blasts_list.size() << std::endl;
 }
 
+/* if collision, delete all blast */
 bool Spaceship::collisionWithAsteroid(float assx, float assy, float aswidth, float asheight) {
 	if (bounding_box_collision(sx - width/2, sy - height/2, width, height, assx - aswidth/2, assy - asheight/2, aswidth, asheight)) {
 		gone = true;
+		std::list<Blast*>::iterator itBlast;
+		for (itBlast = blasts_list.begin(); itBlast != blasts_list.end();) {
+			Blast* delBlast = *itBlast;
+			blasts_list.erase(itBlast++);
+			delete delBlast;
+			std::cout << "blast deleted" << std::endl;
+			delBlast = NULL;
+		}
 		return true;
 	}
 	return false;
@@ -122,7 +134,7 @@ bool Spaceship::asteroidCollisionWithBlast(float assx, float assy, float aswidth
 	assert(aswidth > 0 && asheight > 0);
 	std::list<Blast*>::const_iterator itBlast;
 	for (itBlast = blasts_list.begin(); itBlast != blasts_list.end(); itBlast++) {
-		if (!(*itBlast)->isGone() && (*itBlast)->collisionWithAsteroid(assx, assy, aswidth, asheight)) {
+		if ((*itBlast)->collisionWithAsteroid(assx, assy, aswidth, asheight)) {
 			return true;
 		}
 	} 

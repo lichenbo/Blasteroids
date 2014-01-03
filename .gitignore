@@ -1,9 +1,11 @@
 Debug/
+build/
 *.opensdf
 *.sdf
 *.suo
 *.log
 *.sln
 *.vcxproj
+*.filters
 *.psess
 *.vsp
