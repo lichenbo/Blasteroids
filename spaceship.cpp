@@ -18,7 +18,6 @@ Spaceship::Spaceship(void)
 	height = BORDER_SIZE;
 	// linkedlist of blasts which are still on the screen
 	std::list<Blast*> blasts_list;
-
 }
 
 

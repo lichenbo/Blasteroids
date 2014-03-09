@@ -6,11 +6,13 @@
 #include <iostream>
 using namespace std;
 
+const int ASTEROID_INTERVAL = 2.0;
+
 class DATA{
 public:
 	ALLEGRO_MUTEX *mutex;
 	ALLEGRO_COND *cond;
-	int *score;
+	int score;
 	list<Asteroid*> *asteroids_list;
 	bool ready;
 
@@ -120,8 +122,8 @@ int main() {
 		   float time = al_current_time();
 		   // old_time for watching the appication clock, should be running till the program ends
 		   static float old_time = 0;
-		   /* We create an asteroid every 1.0 seconds */
-		   if (time - old_time > 2.0) {
+		   /* We create an asteroid every 2.0 seconds */
+		   if (time - old_time > ASTEROID_INTERVAL) {
 			   asteroidCreate(asteroids_list, score);
 			   old_time = time;
 		   }

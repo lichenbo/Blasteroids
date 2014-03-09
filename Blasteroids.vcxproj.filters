@@ -30,9 +30,6 @@
     <ClCompile Include="blasteroids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tuple.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="flying.h">
