@@ -166,7 +166,7 @@ int main() {
 			   al_show_native_message_box(display, "Score", "Game Over", message, NULL, 0);
 			   ship_remain = 2;
 			   score = 0;
-
+			   al_start_timer(timer);
 		   }
 	   }
 	   // </TIMER>
