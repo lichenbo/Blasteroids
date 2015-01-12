@@ -15,42 +15,37 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="flying.cpp">
+    <ClCompile Include="asteroid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="blast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spaceship.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="asteroid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="blasteroids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="flying.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spaceship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="flying.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="asteroid.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="blast.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="spaceship.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asteroid.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="blasteroids.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\..\..\..\..\Windows\Fonts\ARIAL.TTF">
-      <Filter>Resource Files</Filter>
-    </Font>
+    <ClInclude Include="flying.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spaceship.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

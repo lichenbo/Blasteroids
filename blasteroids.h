@@ -3,6 +3,7 @@
 #include <allegro5\allegro_font.h>
 #include <allegro5\allegro_ttf.h>
 #include <allegro5\allegro_native_dialog.h>
+#include <allegro5\allegro_image.h>
 
 const float FPS = 60;
 const int SCREEN_W = 640;

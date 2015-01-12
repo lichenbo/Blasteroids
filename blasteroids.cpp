@@ -12,6 +12,7 @@ int main() {
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
+
 	// linkedlist of the asteroids which are still on the screen
 	std::list<Asteroid*> asteroids_list;
 	// pointer to the current spaceship
@@ -63,8 +64,11 @@ int main() {
    // begin to work
    al_init_font_addon();
    al_init_ttf_addon();
+   al_init_image_addon();
+   ALLEGRO_BITMAP *background_image = al_load_bitmap("bg.jpg");
    ALLEGRO_FONT* font24 = al_load_font("arial.ttf", 24, 0);
-   al_clear_to_color(al_map_rgb(255,0,0));
+   //al_clear_to_color(al_map_rgb(255,0,0));
+   al_draw_bitmap(background_image,0,0,0);
  
    al_start_timer(timer);
  
@@ -150,7 +154,8 @@ int main() {
 
 		   // <Display>
 		   al_flip_display();
-		   al_clear_to_color(al_map_rgb(255,0,0));
+		   //al_clear_to_color(al_map_rgb(255,0,0));
+		   al_draw_bitmap(background_image,0,0,0);
 		   // </Didplay>
 
 		   if (ship_remain < 0) {
